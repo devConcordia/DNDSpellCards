@@ -1,0 +1,24 @@
+
+/*
+@font-face {
+  font-family: 'Macondo';
+  src: url('./fonts/Macondo-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Maguntia';
+  src: url('./fonts/UnifrakturMaguntia-Regular.ttf');
+}
+*/
+
+@font-face {
+  font-family: 'Montserrat-Light';
+  src: url('./fonts/Montserrat-Light.ttf');
+}
+
+body {
+	font-family: 'Montserrat-Light';
+	background: #eee;
+}
+
+iframe { width:100%; height:60vh; }
