@@ -87,9 +87,9 @@ The [DNDSpellCards](#pdf-generator) accepts the following spell structure:
 | Syntax   | Style         |
 |----------|---------------|
 |   TEXT   | Normal        |
-| \#TEXT\# | Bold          |
-| \_TEXT\_ | Italic        |
-| \$TEXT\$ | Bold + Italic |
+| `#TEXT#` | Bold          |
+| `_TEXT_` | Italic        |
+| `$TEXT$` | Bold + Italic |
 
 
 ## Editor Setup
