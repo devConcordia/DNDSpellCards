@@ -53,7 +53,7 @@ export default class Spell {
 				
 				remeaing.translate( 0, card.box.height - 4 );
 				
-				card.writeParagraphy( remeaing );
+				card.writeParagraph( remeaing );
 				
 				output.push( card );
 			}
@@ -179,7 +179,7 @@ export default class Spell {
 						
 						remeaing.translate( 0, card.box.height - 3 );
 						
-						card.writeParagraphy( remeaing );
+						card.writeParagraph( remeaing );
 						
 						output.push( card );
 					}
