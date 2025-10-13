@@ -142,10 +142,13 @@ function downloadPdf() {
 
 <template>
 <div class="container">
-
-	<h1 class="m-3">D&D Spell Cards</h1>
 	
-	<div class="m-3">
+	<div class="m-1 d-flex justify-content-between align-items-center">
+		<h1 class="fs-2">D&D Spell Cards</h1>
+		<a class="btn btn-primary" href="https://github.com/devConcordia/DNDSpellCards" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i> Open Source</a>
+	</div>
+	
+	<div class="m-1">
 	
 		<div v-if="step == FILTER" 
 			 class="card shadow-sm" style="height: 85vh;">
@@ -215,9 +218,18 @@ function downloadPdf() {
 		</div>
 		
 	</div>
+	
+	<div class="container m-1 p-3 text-center">
+		<p>Powered by <a href="https://github.com/devConcordia" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i> devConcordia</a></p>
+	</div>
+	
 </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+a { text-decoration:none; }
+
+</style>
 
 
