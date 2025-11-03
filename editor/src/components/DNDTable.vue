@@ -47,11 +47,9 @@ function sort( key, dir ) {
 	
 }
 
-function remove( spell ) {
-
-	const i = props.spells.indexOf( spell );
+function toggle( spell ) {
 	
-	props.spells.splice( i, 1 );
+	spell.printOut = !spell.printOut;
 	
 }
 
@@ -68,7 +66,7 @@ function remove( spell ) {
 		<th @click="sort('type',sortType++)">Type <span style="display:inline" :class="(sortType%3 == 1)? 'bi bi-chevron-down' : (sortType%3 == 2)? 'bi bi-chevron-up' : ''" ></span></th>
 		<th @click="sort('classes',sortClasses++)">Class <span style="display:inline" :class="(sortClasses%3 == 1)? 'bi bi-chevron-down' : (sortClasses%3 == 2)? 'bi bi-chevron-up' : ''" ></span></th>
 		-->
-		<th>X</th>
+		<th>#</th>
 		<th @click="sort('name',sortName++)">Nome</th>
 		<th @click="sort('level',sortLevel++)">Level</th>
 		<th @click="sort('type',sortType++)">Type</th>
@@ -76,12 +74,9 @@ function remove( spell ) {
 	  </tr>
 	</thead>
 	<tbody>
-		<tr v-for="spell in props.spells" >
+		<tr v-for="spell in props.spells" :class="spell.printOut? '' : 'tr-disabled'" @click="toggle( spell )">
 			<td>
-				<button class="btn btn-transparent text-danger p-0" 
-					    @click="remove(spell)" >
-					<span class="bi bi-x text-danger p-0"></span>
-				</button>
+				<input type="checkbox" :checked="spell.printOut" @click.stop="toggle( spell )" />
 			</td>
 			<td>{{ spell.name }}</td>
 			<td>{{ spell.level }}</td>
@@ -93,4 +88,11 @@ function remove( spell ) {
   
 </template>
 
-<style scoped></style>
+<style scoped>
+
+.tr-disabled {
+	text-decoration: line-through;
+	opacity:.75;
+}
+
+</style>
