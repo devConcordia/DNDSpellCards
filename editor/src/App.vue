@@ -4,7 +4,8 @@ import { ref, watch, nextTick, computed } from 'vue';
 import DNDFilter from './components/DNDFilter.vue';
 import DNDTable from './components/DNDTable.vue';
 
-import {SpellCardsRenderer} from '../../source/index.mjs';
+import {SpellCardsRenderer} from 'dnd-spell-cards';
+// import {SpellCardsRenderer} from '../../source/index.mjs';
 
 import spells from '../../data/dnd-players-handbook-spells.json';
 

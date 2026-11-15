@@ -1,5 +1,5 @@
 
-import { PDFFont } from "./PDFLibrary.mjs";
+import { PDFFont } from "pdf-javascript";
 
 /**
  *

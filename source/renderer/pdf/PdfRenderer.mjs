@@ -4,7 +4,7 @@ import { SpellCard } from "../../card/SpellCard.mjs";
 import { measureText } from "../common/measureText.mjs";
 import { Paragraph } from "../common/Paragraph.mjs";
 
-import { PDF } from "./PDFLibrary.mjs";
+import { PDF } from "pdf-javascript";
 
 import { fonts, getBuffer } from "./utils.mjs";
 import {STATBLOCK_FEATURES} from "../common/constants.mjs";

@@ -1,6 +1,6 @@
 import { RendererOptions } from "./RendererOptions.mjs";
 import { PdfRenderer } from "./pdf/PdfRenderer.mjs";
-import { PDF, PDFPage, PDFStream } from "./pdf/PDFLibrary.mjs";
+import { PDF, PDFPage, PDFStream } from "pdf-javascript";
 import { fonts } from "./pdf/utils.mjs";
 
 /// millimiters scale
