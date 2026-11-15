@@ -1,0 +1,38 @@
+{
+  "name": "dnd-spell-cards",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A spell card generator for RPGs",
+  "homepage": "https://github.com/devConcordia/DNDSpellCards#readme",
+  "bugs": {
+    "url": "https://github.com/devConcordia/DNDSpellCards/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devConcordia/DNDSpellCards.git"
+  },
+  "license": "CC0-1.0",
+  "author": "devConcordia",
+  "type": "module",
+  "main": "./source/index.js",
+  "module": "./source/index.mjs",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+		"dev": "npm --prefix editor run dev",
+		"build": "npm --prefix editor run build",
+		"preview": "npm --prefix editor run preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.7",
+    "vite-plugin-vue-devtools": "^8.0.2"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
+}

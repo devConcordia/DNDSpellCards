@@ -1,12 +1,12 @@
 import { RendererOptions } from "./RendererOptions.mjs";
 import { PdfRenderer } from "./pdf/PdfRenderer.mjs";
 import { PDF, PDFPage, PDFStream } from "./pdf/PDFLibrary.mjs";
-import { fonts } from "./pdf/fonts.mjs";
+import { fonts } from "./pdf/utils.mjs";
 
 /// millimiters scale
 const MM = 2.8346;
 
-export class Renderer {
+export class SpellCardsRenderer {
 
 	constructor(options) {
 

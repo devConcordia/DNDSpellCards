@@ -1,75 +1,94 @@
-
 import { Word } from './Word.mjs';
 
+const SPLITTER = /(\*\*\*[\s\S]+?\*\*\*|\*\*[\s\S]+?\*\*|\*[\s\S]+?\*)/g;
+
+/** Paragraph
+ *
+ */
 export class Paragraph extends Array {
 
-	static Create( px, py, text, maxWidth, space = .75, fontSize = 2, fontFamily = 'Arial' ) {
+	static Create(px, py, text, maxWidth, space = .75, fontSize = 2, fontFamily = 'Arial') {
 
-		let p = new Paragraph();
+		const paragraph = new Paragraph();
+		const segments = String(text).split(SPLITTER);
 
-		let words = text.split(/\s/);
-		let type = Word.NORMAL;
+		let x = 0;
+		let y = 0;
 
-		let x = 0,
-			y = 0;
+		for (const segment of segments) {
 
-		for( let content of words ) {
+			if (!segment) continue;
 
-			if( content == '' ) continue;
+			let type = Word.NORMAL;
+			let content = segment;
 
-			if( content.at(0) == '#' ) type = Word.BOLD;
-			if( content.at(0) == '_' ) type = Word.ITALIC;
-			if( content.at(0) == '$' ) type = Word.BOLD_ITALIC;
+			if (segment.startsWith('***') && segment.endsWith('***')) {
 
-			let word = new Word( 0, 0, content, type, fontSize, fontFamily );
+				type = Word.BOLD_ITALIC;
+				content = segment.slice(3, -3);
 
-			if( (x + word.width) > maxWidth ) {
-				x = 0;
-				y -= fontSize + .15;
+			} else if (segment.startsWith('**') && segment.endsWith('**')) {
+
+				type = Word.BOLD;
+				content = segment.slice(2, -2);
+
+			} else if (segment.startsWith('*') && segment.endsWith('*')) {
+
+				type = Word.ITALIC;
+				content = segment.slice(1, -1);
+
 			}
 
-			word.x = px + x;
-			word.y = py + y;
+			for (const token of content.trim().split(/\s+/)) {
 
-			p.push( word );
+				if (!token) continue;
 
-			x += word.width + space;
+				const word = new Word(0, 0, token, type, fontSize, fontFamily);
 
-			let last = content.at(-1);
+				if (x > 0 && x + word.width > maxWidth) {
+					x = 0;
+					y -= fontSize + .15;
+				}
 
-			if( ['.', ',', ')'].includes( last ) ) last = content.at(-2);
+				word.x = px + x;
+				word.y = py + y;
+				paragraph.push(word);
 
-			if( ['#', '_', '$'].includes( last ) ) type = Word.NORMAL;
-
+				x += word.width + space;
+			}
 		}
 
-		return p;
+		return paragraph;
 
 	}
 
 	countLines() {
 
+		if (this.length === 0)
+			return 0;
+
 		let count = 1;
 		let y = this[0].y;
 
-		for( let i = 1; i < this.length; i++ ) {
-			if( this[i].y != y ) {
+		for (let i = 1; i < this.length; i++) {
+
+			if (this[i].y !== y) {
 				y = this[i].y;
 				count++;
 			}
+
 		}
 
 		return count;
 
 	}
 
-	translate( tx, ty ) {
+	translate(tx, ty) {
 
-		for( let w of this ) {
-			w.x += tx;
-			w.y += ty;
+		for (const word of this) {
+			word.x += tx;
+			word.y += ty;
 		}
 
 	}
-
 }

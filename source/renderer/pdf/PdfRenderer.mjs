@@ -3,29 +3,12 @@ import { RendererContext } from "../RendererContext.mjs";
 import { SpellCard } from "../../card/SpellCard.mjs";
 import { measureText } from "../common/measureText.mjs";
 import { Paragraph } from "../common/Paragraph.mjs";
+
 import { PDF } from "./PDFLibrary.mjs";
 
-import { fonts } from "./fonts.mjs";
+import { fonts, getBuffer } from "./utils.mjs";
+import {STATBLOCK_FEATURES} from "../common/constants.mjs";
 
-///
-const STATBLOCK_FEATURES = ['Traits', 'Actions', 'Bonus Actions', 'Reaction'];
-
-/**
- *
- */
-function getBuffer( input ) {
-
-	let output = new Array();
-
-	if( !(typeof input == 'string') )
-		input = input.toString();
-
-	for( let e of input )
-		output.push( e.charCodeAt() );
-
-	return output;
-
-}
 
 export class PdfRenderer {
 
@@ -305,10 +288,10 @@ export class PdfRenderer {
 	renderDetails(card) {
 
 		this.renderTable([
-			[ "#Casting Time#", card.casting ],
-			[ "#Range#", card.range ],
-			[ "#Components#", card.components ],
-			[ "#Duration#", card.duration ]
+			[ "**Casting Time**", card.casting ],
+			[ "**Range**", card.range ],
+			[ "**Components**", card.components ],
+			[ "**Duration**", card.duration ]
 		], [ .35, .65 ] );
 
 		this.renderLine(true);
@@ -351,14 +334,14 @@ export class PdfRenderer {
 			this.renderBreakLine( 1 );
 
 			if( tb.title ) {
-				const paragraph = Paragraph.Create( bound.x, this.cursorY, '#'+ tb.title +'#', bound.width, space, fontSize + .5 );
+				const paragraph = Paragraph.Create( bound.x, this.cursorY, '**'+ tb.title +'**', bound.width, space, fontSize + .5 );
 
 				this.renderParagraph( paragraph );
 				this.renderBreakLine( -2.5 );
 				this.renderLine(true);
 			}
 
-			this.renderTable( tb.header.map(e=>e.map(t=>'#'+t+'#')), tb.sizes );
+			this.renderTable( tb.header.map(e=>e.map(t=>'**'+t+'**')), tb.sizes );
 			this.renderBreakLine( -1 );
 			this.renderLine(true);
 			this.renderTable( tb.body, tb.sizes );
@@ -398,9 +381,9 @@ export class PdfRenderer {
 	renderStatblockDetails( statblock ) {
 
 		this.renderTable([
-			[ "#AC#", statblock.AC ],
-			[ "#HP#", statblock.HP ],
-			[ "#Speed#", statblock.Speed ]
+			[ "**AC**", statblock.AC ],
+			[ "**HP**", statblock.HP ],
+			[ "**Speed**", statblock.Speed ]
 		], [ .25, .75 ], 2, .75 );
 
 		// this.renderBreakLine( 1 );
@@ -410,9 +393,9 @@ export class PdfRenderer {
 
 		this.renderTable([
 			[ '', '', 'MOD', 'SAVE', '', '', 'MOD', 'SAVE' ],
-			[ '#STR#', ...STR, '#DEX#', ...DEX ],
-			[ '#CON#', ...CON, '#INT#', ...INT ],
-			[ '#WIS#', ...WIS, '#CHA#', ...CHA ]
+			[ '**STR**', ...STR, '**DEX**', ...DEX ],
+			[ '**CON**', ...CON, '**INT**', ...INT ],
+			[ '**WIS**', ...WIS, '**CHA**', ...CHA ]
 		], new Float32Array(8).fill(0.125), 1.75, 0 );
 
 		// this.renderBreakLine( 1 );
@@ -425,7 +408,7 @@ export class PdfRenderer {
 		const tbaddons = [];
 
 		for( let k in statblock.addons )
-			tbaddons.push([ '#'+ k +'#', statblock.addons[k] ]);
+			tbaddons.push([ '**'+ k +'**', statblock.addons[k] ]);
 
 		this.renderTable( tbaddons, [ .28, .72 ], 2 );
 
@@ -452,7 +435,7 @@ export class PdfRenderer {
 
 			this.renderBreakLine( 1 );
 
-			const paragraph = Paragraph.Create( bound.x, this.cursorY, '#'+ key +'#', bound.width, space, fontSize + .5 );
+			const paragraph = Paragraph.Create( bound.x, this.cursorY, '**'+ key +'**', bound.width, space, fontSize + .5 );
 
 			this.renderParagraph( paragraph );
 

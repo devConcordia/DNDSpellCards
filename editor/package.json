@@ -1,5 +1,5 @@
 {
-  "name": "editor",
+  "name": "editor-dnd-spell-cards",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+  	"dnd-spell-cards": "*",
     "vue": "^3.5.22"
   },
   "devDependencies": {

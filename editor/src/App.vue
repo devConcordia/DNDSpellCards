@@ -4,14 +4,11 @@ import { ref, watch, nextTick, computed } from 'vue';
 import DNDFilter from './components/DNDFilter.vue';
 import DNDTable from './components/DNDTable.vue';
 
-// import DNDSpellCards from '../../source/DNDSpellCards.mjs';
-import {Renderer} from '../../source/renderer/Renderer.mjs';
+import {SpellCardsRenderer} from '../../source/index.mjs';
 
 import spells from '../../data/dnd-players-handbook-spells.json';
 
-//console.log( spells );
-
-const dndRenderer = new Renderer({});
+const dndRenderer = new SpellCardsRenderer({});
 
 const classOptions = [];
 const levelOptions = [];
@@ -305,7 +302,7 @@ function onDrop(dropIndex) {
 	</div>
 
 	<div class="container mt-3 text-center">
-		<p>Powered by <a href="https://github.com/devConcordia" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i> devConcordia</a> <small>(v1.0.2)</small></p>
+		<p>Powered by <a href="https://github.com/devConcordia" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i> devConcordia</a></p>
 	</div>
 
 </div>

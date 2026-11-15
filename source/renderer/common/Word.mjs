@@ -1,44 +1,45 @@
+import { measureText } from './measureText.mjs';
 
-import { measureText } from './measureText.mjs'
-
-/** Word
- *
- *		 TEXT 	NORMAL
- *		#TEXT# 	BOLD
- *		_TEXT_ 	ITALIC
- *		$TEXT$ 	BOLD - ITALIC
- *
+/**
+ * Supported styles:
+ *   TEXT       -> NORMAL
+ *   **TEXT**   -> BOLD
+ *   *TEXT*     -> ITALIC
+ *   ***TEXT*** -> BOLD_ITALIC
  */
 export class Word {
 
+	static NORMAL = 'NORMAL';
 	static BOLD = 'BOLD';
 	static ITALIC = 'ITALIC';
-	static NORMAL = 'NORMAL';
-
 	static BOLD_ITALIC = 'BOLD_ITALIC';
 
-	constructor( x, y, content, type, fontSize = 2, fontFamily = 'Arial' ) {
+	constructor(x, y, content, type = Word.NORMAL, fontSize = 2, fontFamily = 'Arial') {
 
 		this.x = x;
 		this.y = y;
-
-		content = content.replace(/[\#\_]/gim, '').trim();
-		content = content.replace(/[\#\_\$]/gim, '').trim();
-
-		this.content = content;
+		this.content = String(content);
 		this.type = type;
 		this.fontSize = fontSize;
 		this.fontFamily = fontFamily;
 
-		if( type != Word.NORMAL ) {
+		let fontStyle = '';
 
-			this.width = measureText( content, 'bold '+ (fontSize*10) +'px '+ fontFamily ).width/10;
-
-		} else {
-
-			this.width = measureText( content, (fontSize*10) +'px '+ fontFamily ).width/10;
-
+		switch (type) {
+			case Word.BOLD:
+				fontStyle = 'bold ';
+				break;
+			case Word.ITALIC:
+				fontStyle = 'italic ';
+				break;
+			case Word.BOLD_ITALIC:
+				fontStyle = 'italic bold ';
+				break;
 		}
+
+		const font = `${fontStyle}${parseInt(fontSize * 10)}px ${fontFamily}`;
+
+		this.width = measureText(this.content, font).width / 10;
 
 	}
 
