@@ -8,9 +8,9 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig({
   base:'./',
   build: {
-	  minify: false,
-	  emptyOutDir: true,
-	  outDir: '../docs/'
+	minify: true,
+	emptyOutDir: true,
+	outDir: '../docs/'
   },
   plugins: [
     vue(),

@@ -10,7 +10,7 @@ export class RendererOptions {
 		this.space = .75;
 		this.fontSize = data.fontSize || 2;
 
-		this.bound = new Rect( 5, 7.5, 63 - 10, 73 - 7 );
+		this.bound = new Rect( 6, 7.5, 63 - 12, 73 - 7 );
 
 	}
 
