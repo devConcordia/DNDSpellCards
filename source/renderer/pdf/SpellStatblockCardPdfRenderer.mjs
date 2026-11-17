@@ -4,13 +4,11 @@ import { STATBLOCK_FEATURES } from "../common/constants.mjs";
 
 export class SpellStatblockCardPdfRenderer extends BasePdfRenderer {
 
-	startNewStatblockCard(spell, statblock) {
+	beginCard(spell, statblock) {
 
-		this.resetCardContext();
+		super.beginCard();
 
 		this.drawLayout();
-		// this.context.currentStream.fill();
-
 		this.drawTitle(statblock.title);
 		this.drawSubtitle(statblock.subtitle);
 		this.drawFooter(spell.name + ' | ' + spell.level + ' - ' + spell.type);
@@ -24,7 +22,7 @@ export class SpellStatblockCardPdfRenderer extends BasePdfRenderer {
 		if (!statblock)
 			return this.context.streams;
 
-		this.startNewStatblockCard(spell, statblock);
+		this.beginCard(spell, statblock);
 
 		this.drawStatblockDetails(statblock);
 		this.drawAddons(statblock);
@@ -128,7 +126,7 @@ export class SpellStatblockCardPdfRenderer extends BasePdfRenderer {
 
 			if (this.getRemaingSpace() < .25) {
 
-				this.startNewStatblockCard(spell, statblock);
+				this.beginCard(spell, statblock);
 
 			} else {
 
@@ -149,7 +147,7 @@ export class SpellStatblockCardPdfRenderer extends BasePdfRenderer {
 				const remaining = this.drawParagraph(paragraph);
 
 				if (remaining) {
-					this.startNewStatblockCard(spell, statblock);
+					this.beginCard(spell, statblock);
 					remaining.translate(0, bound.height - 2);
 					this.drawParagraph(remaining);
 				}

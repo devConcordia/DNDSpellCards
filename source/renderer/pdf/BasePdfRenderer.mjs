@@ -28,7 +28,7 @@ export class BasePdfRenderer {
 
 	}
 
-	resetCardContext() {
+	beginCard() {
 
 		this.context.append(new PDF.Path2D());
 
@@ -56,23 +56,18 @@ export class BasePdfRenderer {
 		let q = 1.5;
 		let t = 6;
 
-		// stream.save();
 		stream.moveTo(0, 0);
 		stream.lineTo(w, 0);
 		stream.lineTo(w, h);
 		stream.lineTo(0, h);
 		stream.stroke(true);
-		//stream.restore();
 
-		// stream.save();
 		stream.moveTo(p, p);
 		stream.lineTo(w - p, p);
 		stream.lineTo(w - p, h - p);
 		stream.lineTo(p, h - p);
 		stream.stroke(true);
-		//stream.restore();
 
-		// stream.save();
 		stream.moveTo(t, q);
 		stream.lineTo(w - t, q);
 		stream.lineTo(w - q, t);
@@ -82,19 +77,14 @@ export class BasePdfRenderer {
 		stream.lineTo(q, h - t);
 		stream.lineTo(q, t);
 		stream.stroke(true);
-		//stream.restore();
 
-		// stream.save();
 		stream.moveTo(bound.x + 3, bound.y + bound.height);
 		stream.lineTo(bound.x + bound.width - 3, bound.y + bound.height);
 		stream.stroke();
-		// stream.restore();
 
-		// stream.save();
 		stream.moveTo(bound.x, bound.y);
 		stream.lineTo(bound.x + bound.width, bound.y);
 		stream.stroke();
-		// stream.restore();
 
 	}
 

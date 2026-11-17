@@ -3,13 +3,11 @@ import { Paragraph } from "../common/Paragraph.mjs";
 
 export class SpellCardPdfRenderer extends BasePdfRenderer {
 
-	startNewSpellCard(spell) {
+	beginCard(spell) {
 
-		this.resetCardContext();
+		super.beginCard();
 
 		this.drawLayout();
-		// this.context.currentStream.stroke();
-
 		this.drawTitle(spell.name);
 		this.drawSubtitle(spell.level + ' - ' + spell.type);
 
@@ -20,7 +18,7 @@ export class SpellCardPdfRenderer extends BasePdfRenderer {
 
 	render(spell) {
 
-		this.startNewSpellCard(spell);
+		this.beginCard(spell);
 
 		this.skipLines(.5);
 		this.drawDetails(spell);
@@ -56,7 +54,7 @@ export class SpellCardPdfRenderer extends BasePdfRenderer {
 			const remaining = this.drawParagraph(paragraph);
 
 			if (remaining) {
-				this.startNewSpellCard(spell);
+				this.beginCard(spell);
 				this.skipLines(2);
 
 				remaining.translate(0, bound.height - 2);
@@ -77,7 +75,7 @@ export class SpellCardPdfRenderer extends BasePdfRenderer {
 		for (const tb of spell.tables) {
 
 			if (this.getRemaingSpace() < .5)
-				this.startNewSpellCard(spell);
+				this.beginCard(spell);
 
 			this.skipLines(1);
 
