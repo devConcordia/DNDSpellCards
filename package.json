@@ -1,6 +1,6 @@
 {
   "name": "dnd-spell-cards",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "A spell card generator for RPGs",
   "homepage": "https://github.com/devConcordia/DNDSpellCards#readme",
