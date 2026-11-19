@@ -12,8 +12,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-  	"pdf-javascript": "github:devConcordia/pdf-javascript",
-  	"dnd-spell-cards": "file:..",
+    "bootstrap": "^5.3.9",
+    "bootstrap-icons": "^1.13.2",
+    "dnd-spell-cards": "file:..",
+    "pdf-javascript": "github:devConcordia/pdf-javascript",
     "vue": "^3.5.22"
   },
   "devDependencies": {

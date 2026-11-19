@@ -1,4 +1,5 @@
 import { RendererOptions } from "./RendererOptions.mjs";
+import { CanvasRenderer } from "./image/CanvasRenderer.mjs";
 import { PdfRenderer } from "./pdf/PdfRenderer.mjs";
 import { PDF, PDFPage, PDFStream } from "pdf-javascript";
 import { fonts } from "./pdf/utils.mjs";
@@ -13,7 +14,7 @@ export class SpellCardsRenderer {
 		this.options = new RendererOptions(options);
 
 		this.pdfRenderer = new PdfRenderer(this.options);
-		// this.imageRenderer = imageRenderer;
+		this.imageRenderer = new CanvasRenderer(this.options);
 
 	}
 
@@ -83,6 +84,22 @@ export class SpellCardsRenderer {
 
 		///
 		return doc;
+
+	}
+
+	/**
+	 *
+	 * @param {SpellCard} spell
+	 */
+	generateImage(spell) {
+
+		const output = [];
+
+		this.imageRenderer.clearContext();
+
+		output.push( ...this.imageRenderer.render( spell ) );
+
+		return output;
 
 	}
 
