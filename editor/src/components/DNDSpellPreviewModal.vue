@@ -6,17 +6,10 @@ import * as bootstrap from 'bootstrap';
 import DNDSpellPreview from './DNDSpellPreview.vue';
 
 const props = defineProps({
-
-    spells: {
-        type: Array,
-        required: true
-    },
-
     renderer: {
         type: Object,
         required: true
     }
-
 });
 
 const modalElement = ref(null);

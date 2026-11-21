@@ -53,13 +53,9 @@ function previewSpell(spell) {
 </script>
 
 <template>
-
     <div>
-
         <ul class="list-unstyled">
-
-            <li
-                v-for="spell in selectedSpells"
+            <li v-for="spell in selectedSpells"
                 :key="spell.name"
                 class="d-flex align-items-center justify-content-between border-bottom py-2"
                 draggable="true"
@@ -68,50 +64,30 @@ function previewSpell(spell) {
                 @drop="onDrop(spell)">
 
                 <span class="text-truncate w-50">
-
                     <i class="bi bi-grip-vertical mx-1"></i>
-
                     {{ spell.name }}
-
                 </span>
 
                 <div class="d-flex align-items-center justify-content-between gap-2 w-50">
-
                     <span>{{ spell.level }}</span>
 
-                    <span>{{ spell.type }}</span>
+                    <span class="d-none d-md-block">{{ spell.type }}</span>
 
-                    <span
-                        class="text-truncate d-none d-lg-block"
-                        style="max-width: 7em">
-
+                    <span class="text-truncate d-none d-lg-block" style="max-width: 7em">
                         {{ spell.classes.join(', ') }}
-
                     </span>
 
-                    <!-- Preview -->
-                    <button
-                        class="btn btn-sm btn-outline-primary"
-                        title="Visualizar carta"
+                    <button class="btn btn-sm btn-outline-primary" title="Visualizar"
                         @click.stop="previewSpell(spell)"
                         @dragstart.stop.prevent>
-
-                        <i class="bi bi-eye"></i>
-
+                        <i class="bi bi-card-image"></i>
                     </button>
-
                 </div>
-
             </li>
-
         </ul>
 
-        <!-- Modal -->
         <DNDSpellPreviewModal
             ref="previewModal"
-            :spells="selectedSpells"
             :renderer="renderer" />
-
     </div>
-
 </template>

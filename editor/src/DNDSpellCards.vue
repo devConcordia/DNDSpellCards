@@ -10,15 +10,7 @@ import { useSpellCards } from './composables/useSpellCards';
 
 import { SpellCardsRenderer } from 'dnd-spell-cards';
 
-// --------------------------------------------------
-// Renderer
-// --------------------------------------------------
-
 const dndRenderer = new SpellCardsRenderer({});
-
-// --------------------------------------------------
-// Spell data and filters
-// --------------------------------------------------
 
 const {
     classOptions,
@@ -37,20 +29,12 @@ const {
 
 } = useSpellCards();
 
-// --------------------------------------------------
-// Workflow
-// --------------------------------------------------
-
 const FILTER = 'FILTER';
 const SELECTION = 'SELECTION';
 const CONFIRM = 'CONFIRM';
 const PRINT = 'PRINT';
 
 const step = ref(FILTER);
-
-// --------------------------------------------------
-// PDF
-// --------------------------------------------------
 
 let doc = null;
 
@@ -134,10 +118,6 @@ function downloadPdf() {
 
     <div class="m-1">
 
-        <!-- ====================================== -->
-        <!-- FILTER -->
-        <!-- ====================================== -->
-
         <div
             v-if="step === FILTER"
             class="card shadow-sm"
@@ -183,14 +163,8 @@ function downloadPdf() {
 
         </div>
 
-        <!-- ====================================== -->
-        <!-- SELECTION -->
-        <!-- ====================================== -->
-
-        <div
-            v-else-if="step === SELECTION"
-            class="card shadow-sm"
-            style="height: 85vh">
+        <div v-else-if="step === SELECTION"
+            class="card shadow-sm" style="height: 85vh">
 
             <div class="card-header bg-dark text-light d-flex align-items-center">
 
@@ -210,7 +184,7 @@ function downloadPdf() {
 
                 <div class="table-responsive">
 
-                    <DNDTable :spells="outputSpells" />
+                    <DNDTable :spells="outputSpells" :renderer="dndRenderer"/>
 
                 </div>
 
@@ -230,10 +204,6 @@ function downloadPdf() {
             </button>
 
         </div>
-
-        <!-- ====================================== -->
-        <!-- CONFIRM -->
-        <!-- ====================================== -->
 
         <div
             v-else-if="step === CONFIRM"
@@ -279,10 +249,6 @@ function downloadPdf() {
             </button>
 
         </div>
-
-        <!-- ====================================== -->
-        <!-- PRINT -->
-        <!-- ====================================== -->
 
         <div
             v-else-if="step === PRINT"

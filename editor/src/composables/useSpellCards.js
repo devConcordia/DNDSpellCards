@@ -4,35 +4,30 @@ import spells from '../../../data/dnd-players-handbook-spells.json';
 
 export function useSpellCards() {
 
-    // Prepara os dados sem modificar o JSON original.
     const allSpells = spells.map(spell => ({
         ...spell,
         classes: [...spell.classes],
-        printOut: true
+        printOut: false
     }));
 
-    // Opções disponíveis.
     const classOptions = [...new Set(
         allSpells.flatMap(spell => spell.classes)
     )].sort();
 
     const levelOptions = [...new Set(
-        allSpells.map(spell => spell.level)
-    )].sort((a, b) => a - b);
+        allSpells.map(spell => spell.level).sort()
+    )];
 
     const typeOptions = [...new Set(
         allSpells.map(spell => spell.type)
     )].sort();
 
-    // Filtros.
-    const classesFilters = ref([]); //ref(classOptions.slice());
+    const classesFilters = ref([]);
     const levelFilters = ref(levelOptions.slice());
     const typeFilters = ref(typeOptions.slice());
 
-    // Cartas disponíveis.
     const outputSpells = ref(allSpells);
 
-    // Cartas selecionadas para impressão.
     const selectedSpells = computed(() =>
         outputSpells.value.filter(spell => spell.printOut)
     );
@@ -41,7 +36,6 @@ export function useSpellCards() {
         selectedSpells.value.length
     );
 
-    // Aplicação dos filtros.
     function onOptionsChange() {
 
         outputSpells.value = allSpells
@@ -71,7 +65,6 @@ export function useSpellCards() {
         { deep: true }
     );
 
-    // Reordenação das cartas.
     function moveSpell(sourceSpell, targetSpell) {
 
         const sourceIndex = outputSpells.value.indexOf(sourceSpell);
