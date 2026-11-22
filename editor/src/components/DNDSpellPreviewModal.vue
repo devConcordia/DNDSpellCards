@@ -88,7 +88,10 @@ function download() {
 		dx += e.width;
 	}
 
-	window.open(canvas.toDataURL());
+	const a = document.createElement('a');
+	a.download = `${activeSpell.value.name}.png`;
+	a.href = canvas.toDataURL();
+	a.click();
 
 }
 
