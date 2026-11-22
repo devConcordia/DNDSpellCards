@@ -3,8 +3,6 @@
 import { ref, watch, nextTick } from 'vue';
 import * as bootstrap from 'bootstrap';
 
-import DNDSpellPreview from './DNDSpellPreview.vue';
-
 const props = defineProps({
     renderer: {
         type: Object,
