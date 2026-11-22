@@ -71,6 +71,27 @@ function next() {
 
 }
 
+function download() {
+
+	const firstCanvas = canvases.value[0];
+
+	const canvas = document.createElement('canvas');
+	const ctx = canvas.getContext('2d');
+
+	canvas.width = canvases.value.length * firstCanvas.width;
+	canvas.height = firstCanvas.height;
+
+	let dx = 0;
+
+	for (const e of canvases.value) {
+		ctx.drawImage(e, dx, 0);
+		dx += e.width;
+	}
+
+	window.open(canvas.toDataURL());
+
+}
+
 defineExpose({ open, close });
 
 </script>
@@ -106,51 +127,19 @@ defineExpose({ open, close });
 
                     <div v-if="canvases.length" class="preview-carousel">
 
-                        <button
-                            v-if="canvases.length > 1"
-                            class="btn btn-outline-secondary"
-                            @click="previous">
-
-                            <i class="bi bi-chevron-left"></i>
-
-                        </button>
-
                         <div class="preview-image">
-
-	                        <canvas
+	                        <canvas class="preview-canvas"
 	                            v-if="canvases[activeIndex]"
 	                            :ref="el => {
-
 	                                if (el) {
-
 	                                    const canvas = canvases[activeIndex];
-
 	                                    el.width = canvas.width;
 	                                    el.height = canvas.height;
-
 	                                    el.getContext('2d').drawImage(canvas, 0, 0);
-
 	                                }
-
-	                            }"
-	                            class="preview-canvas">
-	                        </canvas>
-                            <!-- <DNDSpellPreview
-                                v-if="activeSpell"
-                                :spell="activeSpell"
-                                :renderer="renderer"
-                                :key="activeSpell.name + '-' + activeIndex" /> -->
-
+	                            }"></canvas>
                         </div>
 
-                        <button
-                            v-if="canvases.length > 1"
-                            class="btn btn-outline-secondary"
-                            @click="next">
-
-                            <i class="bi bi-chevron-right"></i>
-
-                        </button>
 
                     </div>
 
@@ -170,24 +159,31 @@ defineExpose({ open, close });
 
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-between">
+                	<div>
 
-                    <button
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">
+                 		<button class="btn btn-primary mx-1"
+							@click="download">
+		                    <i class="bi bi-download"></i>
+		                </button>
+                 	</div>
 
-                        Fechar
+                	<div>
+	                 	<button v-if="canvases.length > 1" class="btn btn-outline-secondary mx-1"
+							@click="previous">
+		                    <i class="bi bi-chevron-left"></i>
+		                </button>
 
-                    </button>
+		                <button v-if="canvases.length > 1" class="btn btn-outline-secondary mx-1"
+		                    @click="next">
+		                    <i class="bi bi-chevron-right"></i>
+		                </button>
+                 	</div>
 
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </template>
 
 <style scoped>

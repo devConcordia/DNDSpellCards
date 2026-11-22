@@ -30,8 +30,10 @@ export class SpellStatblockCardCanvasRenderer extends BaseCanvasRenderer {
 	}
 
 	drawLayout() {
+
+		super.drawLayout();
+
 		const ctx = this.currentCtx;
-		const bound = this.options.bound;
 
 		let w = this.options.width,
 			h = this.options.height;
@@ -40,16 +42,6 @@ export class SpellStatblockCardCanvasRenderer extends BaseCanvasRenderer {
 		let q = 1.5;
 		let t = 6;
 
-		// Borda externa
-		ctx.beginPath();
-		ctx.moveTo(0, this._y(0));
-		ctx.lineTo(w, this._y(0));
-		ctx.lineTo(w, this._y(h));
-		ctx.lineTo(0, this._y(h));
-		ctx.closePath();
-		ctx.stroke();
-
-		// Moldura dupla preenchida (equivalente ao stream.both(true, true) com even-odd)
 		ctx.save();
 		ctx.beginPath();
 		ctx.moveTo(p, this._y(p));
@@ -70,20 +62,7 @@ export class SpellStatblockCardCanvasRenderer extends BaseCanvasRenderer {
 
 		ctx.fillStyle = '#000000';
 		ctx.fill('evenodd');
-		ctx.stroke();
 		ctx.restore();
-
-		// Linha superior do cabeçalho
-		ctx.beginPath();
-		ctx.moveTo(bound.x + 3, this._y(bound.y + bound.height));
-		ctx.lineTo(bound.x + bound.width - 3, this._y(bound.y + bound.height));
-		ctx.stroke();
-
-		// Linha inferior do rodapé
-		ctx.beginPath();
-		ctx.moveTo(bound.x, this._y(bound.y));
-		ctx.lineTo(bound.x + bound.width, this._y(bound.y));
-		ctx.stroke();
 	}
 
 	drawStatblockDetails(statblock) {
@@ -132,13 +111,13 @@ export class SpellStatblockCardCanvasRenderer extends BaseCanvasRenderer {
 				this.drawSeparator(true);
 			}
 
-			const paragraph = Paragraph.Create(bound.x, this.cursorY, '**' + key + '**', bound.width, space, fontSize + .25);
+			const paragraph = Paragraph.Create(bound.x, this.cursorY, '**' + key + '**', bound.width, { space, fontSize: fontSize + .25 });
 			this.drawParagraph(paragraph);
 
 			let content = statblock[key];
 
 			for (const text of content) {
-				const paragraph = Paragraph.Create(bound.x, this.cursorY, text, bound.width, space, fontSize);
+				const paragraph = Paragraph.Create(bound.x, this.cursorY, text, bound.width, { space, fontSize, justify:true });
 				const remaining = this.drawParagraph(paragraph);
 
 				if (remaining) {

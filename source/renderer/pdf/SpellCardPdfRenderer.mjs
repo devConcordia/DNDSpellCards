@@ -50,7 +50,7 @@ export class SpellCardPdfRenderer extends BasePdfRenderer {
 
 		for (const text of spell.content) {
 
-			const paragraph = Paragraph.Create(bound.x, this.cursorY, text, bound.width, space, fontSize);
+			const paragraph = Paragraph.Create(bound.x, this.cursorY, text, bound.width, { space, fontSize, justify: true });
 			const remaining = this.drawParagraph(paragraph);
 
 			if (remaining) {
@@ -81,7 +81,7 @@ export class SpellCardPdfRenderer extends BasePdfRenderer {
 
 			if (tb.title) {
 
-				const paragraph = Paragraph.Create(bound.x, this.cursorY, '**' + tb.title + '**', bound.width, space, fontSize + .5);
+				const paragraph = Paragraph.Create(bound.x, this.cursorY, '**' + tb.title + '**', bound.width, { space, fontSize: fontSize + .5 });
 
 				this.drawParagraph(paragraph);
 				this.skipLines(-1);

@@ -77,7 +77,6 @@ export class BaseCanvasRenderer {
 		let q = 1.5;
 		let t = 6;
 
-		// Borda externa
 		ctx.beginPath();
 		ctx.moveTo(0, this._y(0));
 		ctx.lineTo(w, this._y(0));
@@ -86,7 +85,6 @@ export class BaseCanvasRenderer {
 		ctx.closePath();
 		ctx.stroke();
 
-		// Borda interna
 		ctx.beginPath();
 		ctx.moveTo(p, this._y(p));
 		ctx.lineTo(w - p, this._y(p));
@@ -95,7 +93,6 @@ export class BaseCanvasRenderer {
 		ctx.closePath();
 		ctx.stroke();
 
-		// Moldura chanfrada (octógono)
 		ctx.beginPath();
 		ctx.moveTo(t, this._y(q));
 		ctx.lineTo(w - t, this._y(q));
@@ -108,13 +105,11 @@ export class BaseCanvasRenderer {
 		ctx.closePath();
 		ctx.stroke();
 
-		// Linha superior do cabeçalho
 		ctx.beginPath();
 		ctx.moveTo(bound.x + 3, this._y(bound.y + bound.height));
 		ctx.lineTo(bound.x + bound.width - 3, this._y(bound.y + bound.height));
 		ctx.stroke();
 
-		// Linha inferior do rodapé
 		ctx.beginPath();
 		ctx.moveTo(bound.x, this._y(bound.y));
 		ctx.lineTo(bound.x + bound.width, this._y(bound.y));
@@ -185,6 +180,7 @@ export class BaseCanvasRenderer {
 		const bound = this.options.bound;
 
 		while (paragraph.length > 0) {
+
 			if (paragraph[0].y <= bound.y)
 				return paragraph;
 
@@ -214,7 +210,7 @@ export class BaseCanvasRenderer {
 
 			for (let i = 0; i < line.length; i++) {
 				let columnWidth = bound.width * sizes[i];
-				let p = Paragraph.Create(x + bound.width * dx[i], y, line[i], columnWidth, space, fontSize);
+				let p = Paragraph.Create(x + bound.width * dx[i], y, line[i], columnWidth, { space, fontSize });
 
 				if (p.length == 0) continue;
 

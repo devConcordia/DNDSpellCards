@@ -14,7 +14,10 @@ export class Word {
 	static ITALIC = 'ITALIC';
 	static BOLD_ITALIC = 'BOLD_ITALIC';
 
-	constructor(x, y, content, type = Word.NORMAL, fontSize = 2, fontFamily = 'Arial') {
+	constructor(x, y, content, type = Word.NORMAL, options = {}) {
+
+		const fontSize = options.fontSize || 2;
+		const fontFamily = options.fontFamily || 'Arial';
 
 		this.x = x;
 		this.y = y;

@@ -42,7 +42,7 @@ export class SpellCardCanvasRenderer extends BaseCanvasRenderer {
 		const { bound, fontSize, space } = this.options;
 
 		for (const text of spell.content) {
-			const paragraph = Paragraph.Create(bound.x, this.cursorY, text, bound.width, space, fontSize);
+			const paragraph = Paragraph.Create(bound.x, this.cursorY, text, bound.width, { space, fontSize, justify: true });
 			const remaining = this.drawParagraph(paragraph);
 
 			if (remaining) {
@@ -68,7 +68,7 @@ export class SpellCardCanvasRenderer extends BaseCanvasRenderer {
 			this.skipLines(1);
 
 			if (tb.title) {
-				const paragraph = Paragraph.Create(bound.x, this.cursorY, '**' + tb.title + '**', bound.width, space, fontSize + .5);
+				const paragraph = Paragraph.Create(bound.x, this.cursorY, '**' + tb.title + '**', bound.width, { space, fontSize: fontSize + .5, justify: true });
 
 				this.drawParagraph(paragraph);
 				this.skipLines(-1);

@@ -2,18 +2,55 @@ import { Word } from './Word.mjs';
 
 const SPLITTER = /(\*\*\*[\s\S]+?\*\*\*|\*\*[\s\S]+?\*\*|\*[\s\S]+?\*)/g;
 
-/** Paragraph
- *
- */
 export class Paragraph extends Array {
 
-	static Create(px, py, text, maxWidth, space = .75, fontSize = 2, fontFamily = 'Arial') {
+	static Create(px, py, text, maxWidth, options = {}) {
+
+		const space = options.space || .75;
+		const fontSize = options.fontSize || 2;
+		const justify = options.justify || false;
+		const fontFamily = options.fontFamily || 'Arial';
 
 		const paragraph = new Paragraph();
 		const segments = String(text).split(SPLITTER);
 
 		let x = 0;
 		let y = 0;
+		let line = [];
+
+		const lineHeight = fontSize + .15;
+
+		function flushLine(isLast = false) {
+
+			if (line.length === 0) return;
+
+			let spacing = space;
+
+			if (justify && !isLast && line.length > 1) {
+
+				const wordsWidth = line.reduce(function(total, word) { return total + word.width }, 0);
+
+				spacing = (maxWidth - wordsWidth) / (line.length - 1);
+
+			}
+
+			let offset = 0;
+
+			for (const word of line) {
+
+				word.x = px + offset;
+				word.y = py + y;
+
+				paragraph.push(word);
+
+				offset += word.width + spacing;
+
+			}
+
+			line = [];
+			x = 0;
+
+		};
 
 		for (const segment of segments) {
 
@@ -43,20 +80,20 @@ export class Paragraph extends Array {
 
 				if (!token) continue;
 
-				const word = new Word(0, 0, token, type, fontSize, fontFamily);
+				const word = new Word(0, 0, token, type, { fontSize, fontFamily });
 
 				if (x > 0 && x + word.width > maxWidth) {
-					x = 0;
-					y -= fontSize + .15;
+					flushLine(false);
+					y -= lineHeight;
 				}
 
-				word.x = px + x;
-				word.y = py + y;
-				paragraph.push(word);
+				line.push(word);
 
 				x += word.width + space;
 			}
 		}
+
+		flushLine(true);
 
 		return paragraph;
 
@@ -91,4 +128,5 @@ export class Paragraph extends Array {
 		}
 
 	}
+
 }

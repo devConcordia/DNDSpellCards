@@ -35,8 +35,9 @@ export class SpellStatblockCardPdfRenderer extends BasePdfRenderer {
 
 	drawLayout() {
 
+		super.drawLayout();
+
 		const stream = this.context.currentStream;
-		const bound = this.options.bound;
 
 		let w = this.options.width,
 			h = this.options.height;
@@ -44,12 +45,6 @@ export class SpellStatblockCardPdfRenderer extends BasePdfRenderer {
 		let p = 2.5;
 		let q = 1.5;
 		let t = 6;
-
-		stream.moveTo(0, 0);
-		stream.lineTo(w, 0);
-		stream.lineTo(w, h);
-		stream.lineTo(0, h);
-		stream.stroke(true);
 
 		stream.save();
 		stream.moveTo(p, p);
@@ -67,14 +62,6 @@ export class SpellStatblockCardPdfRenderer extends BasePdfRenderer {
 		stream.lineTo(q, t);
 		stream.both(true, true);
 		stream.restore();
-
-		stream.moveTo(bound.x + 3, bound.y + bound.height);
-		stream.lineTo(bound.x + bound.width - 3, bound.y + bound.height);
-		stream.stroke();
-
-		stream.moveTo(bound.x, bound.y);
-		stream.lineTo(bound.x + bound.width, bound.y);
-		stream.stroke();
 
 	}
 
@@ -136,14 +123,14 @@ export class SpellStatblockCardPdfRenderer extends BasePdfRenderer {
 
 			// this.skipLines(1);
 
-			const paragraph = Paragraph.Create(bound.x, this.cursorY, '**' + key + '**', bound.width, space, fontSize + .25);
+			const paragraph = Paragraph.Create(bound.x, this.cursorY, '**' + key + '**', bound.width, { space, fontSize: fontSize + .25 });
 			this.drawParagraph(paragraph);
 
 			let content = statblock[key];
 
 			for (const text of content) {
 
-				const paragraph = Paragraph.Create(bound.x, this.cursorY, text, bound.width, space, fontSize);
+				const paragraph = Paragraph.Create(bound.x, this.cursorY, text, bound.width, { space, fontSize, justify: true });
 				const remaining = this.drawParagraph(paragraph);
 
 				if (remaining) {

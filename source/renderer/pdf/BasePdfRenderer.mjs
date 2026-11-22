@@ -168,7 +168,6 @@ export class BasePdfRenderer {
 		const stream = this.context.currentStream;
 		const bound = this.options.bound;
 
-
 		while (paragraph.length > 0) {
 
 			if (paragraph[0].y <= bound.y)
@@ -206,7 +205,7 @@ export class BasePdfRenderer {
 			for (let i = 0; i < line.length; i++) {
 
 				let columnWidth = bound.width * sizes[i];
-				let p = Paragraph.Create(x + bound.width * dx[i], y, line[i], columnWidth, space, fontSize);
+				let p = Paragraph.Create(x + bound.width * dx[i], y, line[i], columnWidth, { space, fontSize });
 
 				if (p.length == 0) continue;
 
@@ -221,11 +220,11 @@ export class BasePdfRenderer {
 
 				this.drawParagraph(p);
 
+				if (skip) break;
+
 			}
 
 		}
-
-		// this.cursorY += 1;
 
 		return output;
 
